@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 # https://www.jianshu.com/p/0c159cdd9c50
 
-
+#带权重的二元交叉熵损失函数
 class BCELosswithLogits(nn.Module):
     def __init__(self, pos_weight=1, reduction='mean'):
         super(BCELosswithLogits, self).__init__()
@@ -22,7 +22,7 @@ class BCELosswithLogits(nn.Module):
             loss = loss.sum()
         return loss
 
-
+#多类别任务的交叉熵损失函数
 class CrossEntropyLoss(torch.nn.Module):
     def __init__(self, reduction='mean'):
         super(CrossEntropyLoss, self).__init__()
@@ -46,6 +46,7 @@ class CrossEntropyLoss(torch.nn.Module):
             loss = loss.sum()
         return loss
 
+#混合交叉熵损失[引入了一个importance参数，用于加权不同样本的损失]
 class MixCrossEntropyLoss(torch.nn.Module):
     def __init__(self, reduction='mean', ):
         super(MixCrossEntropyLoss, self).__init__()
