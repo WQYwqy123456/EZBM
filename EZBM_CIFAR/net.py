@@ -37,7 +37,7 @@ def _weights_init(m):
     if isinstance(m, nn.Linear) or isinstance(m, nn.Conv2d):
         init.kaiming_normal_(m.weight)
 
-
+#归一化的线性层
 class NormedLinear(nn.Module):
     def __init__(self, in_features, out_features):
         super(NormedLinear, self).__init__()
@@ -48,7 +48,7 @@ class NormedLinear(nn.Module):
         out = F.normalize(x, dim=1).mm(F.normalize(self.weight, dim=0))
         return out
 
-
+#对输入张量进行下采样（缩小宽度和高度），并在通道维度上进行填充，以改变输入张量的维度
 class LambdaLayer(nn.Module):
     def __init__(self, planes):
         super(LambdaLayer, self).__init__()
@@ -104,7 +104,7 @@ class BasicBlock(nn.Module):
         out = F.relu(out)
         return out
 
-
+#定义了一个resnet架构的神经网络模型
 class ResNet_s(nn.Module):
 
     def __init__(self, block, num_blocks, num_classes=10, use_norm=False):
